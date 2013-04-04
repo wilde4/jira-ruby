@@ -66,7 +66,12 @@ module JIRA
 
       @options.freeze
     end
-
+    
+    # RW
+    def Rapidboard # :nodoc:
+      JIRA::Resource::RapidboardFactory.new(self)
+    end
+    
     def Project # :nodoc:
       JIRA::Resource::ProjectFactory.new(self)
     end

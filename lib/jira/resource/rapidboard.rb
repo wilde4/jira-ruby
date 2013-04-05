@@ -7,7 +7,7 @@ module JIRA
     class Rapidboard < JIRA::Base
 
       def self.id_attribute
-        :id
+        attrs[:id]
       end
     
 
@@ -21,7 +21,7 @@ module JIRA
 
       def sprints
         # https://nidigitalsolutions.jira.com/rest/greenhopper/1.0/sprints/237
-        response = client.get("/rest/greenhopper/1.0/sprints/#{id}")
+        response = client.get("/rest/greenhopper/1.0/sprints/#{attrs[:id]}")
         json = self.class.parse_json(response.body)
         json['sprints'].map do |sprint|
           client.Sprint.build(sprint)

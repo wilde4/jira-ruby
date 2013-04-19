@@ -17,7 +17,8 @@ module JIRA
 
       # Returns all the issues for this project
       def issues
-        response = client.get(client.options[:rest_base_path] + "/search?jql=project%3D'#{key}'")
+        project_id = key rescue attrs[:key]
+        response = client.get(client.options[:rest_base_path] + "/search?jql=project%3D'#{project_id}'")
         json = self.class.parse_json(response.body)
         json['issues'].map do |issue|
           client.Issue.build(issue)

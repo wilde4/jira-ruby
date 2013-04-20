@@ -19,9 +19,16 @@ module JIRA
         end
       end
       
+      def dates(rapidboard_id)
+        response = client.get("/rest/greenhopper/1.0/rapid/charts/sprintreport?rapidViewId=#{rapidboard_id}&sprintId=#{attrs[:id]}")
+        json = self.class.parse_json(response.body)
+        start_date = DateTime.parse(json['sprint']['startDate']) rescue nil
+        end_date = DateTime.parse(json['sprint']['endDate']) rescue nil
+        complete_date = DateTime.parse(json['sprint']['completeDate']) rescue nil
+        return {:start_date => start_date, :end_date => end_date, :complete_date => complete_date}
+      end
 
-      
-      
+
     end
 
   end

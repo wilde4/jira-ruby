@@ -12,7 +12,7 @@ module JIRA
 
       # Returns all the issues for this project
       def issues
-        response = client.get(client.options[:rest_base_path] + "/search?jql=sprint%3D#{attrs[:id]}")
+        response = client.get(client.options[:rest_base_path] + "/search?maxResults=200&jql=sprint%3D#{attrs[:id]}")
         json = self.class.parse_json(response.body)
         json['issues'].map do |issue|
           client.Issue.build(issue)

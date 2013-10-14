@@ -21,8 +21,9 @@ module JIRA
 
       def sprints
         # https://nidigitalsolutions.jira.com/rest/greenhopper/1.0/sprints/237
-        response = client.get("/rest/greenhopper/1.0/sprints/#{attrs[:id]}")
+        response = client.get("/rest/greenhopper/1.0/sprintquery/#{attrs[:id]}")
         json = self.class.parse_json(response.body)
+        
         json['sprints'].map do |sprint|
           client.Sprint.build(sprint)
         end
